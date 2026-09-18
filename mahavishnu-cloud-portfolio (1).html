@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Mahavishnu — Cloud Engineer focused on automating network and cloud infrastructure.">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Mahavishnu — Cloud Infrastructure Engineer</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+            sans: ["Inter", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { color-scheme: light; }
+    .dark { color-scheme: dark; }
+    html { scroll-behavior:smooth; }
+    body { font-family:Inter,sans-serif; }
+    .display { font-family:"Space Grotesk",sans-serif; }
+    .mono { font-family:"JetBrains Mono",monospace; }
+
+    .grid-paper {
+      background-image:
+        linear-gradient(rgba(24,24,27,.075) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(24,24,27,.075) 1px,transparent 1px);
+      background-size:36px 36px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);
+    }
+    .dark .grid-paper {
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+    }
+    .noise:before {
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.025;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .project { transform-style:preserve-3d; transition:transform .16s ease,border-color .25s ease,box-shadow .25s ease; }
+    .project:hover { border-color:rgba(24,24,27,.24); box-shadow:0 24px 70px rgba(0,0,0,.08); }
+    .dark .project:hover { border-color:rgba(255,255,255,.22); box-shadow:0 24px 80px rgba(0,0,0,.45); }
+    .line-link { position:relative; }
+    .line-link:after { content:""; position:absolute; left:0; bottom:-4px; width:100%; height:1px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .25s ease; }
+    .line-link:hover:after { transform:scaleX(1); transform-origin:left; }
+    .skill { transition:transform .2s ease,background .2s ease; }
+    .skill:hover { transform:translateY(-2px); }
+    .terminal-caret { animation:blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    @media (prefers-reduced-motion:reduce) {
+      *,*:before,*:after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+      html { scroll-behavior:auto; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+
+<body class="noise bg-[#f7f6f2] text-zinc-950 dark:bg-[#090909] dark:text-zinc-100">
+  <header class="fixed inset-x-0 top-0 z-40 px-3 sm:px-5 pt-3">
+    <nav class="mx-auto max-w-6xl rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2]/85 dark:bg-[#090909]/80 backdrop-blur-xl">
+      <div class="h-14 px-4 sm:px-5 flex items-center justify-between">
+        <a href="#home" class="display font-bold text-lg tracking-tight" aria-label="Mahavishnu home">M<span class="text-zinc-400">/</span></a>
+
+        <div class="hidden md:flex items-center gap-7 text-sm text-zinc-500 dark:text-zinc-400">
+          <a href="#about" class="hover:text-zinc-950 dark:hover:text-white transition">About</a>
+          <a href="#projects" class="hover:text-zinc-950 dark:hover:text-white transition">Projects</a>
+          <a href="#experience" class="hover:text-zinc-950 dark:hover:text-white transition">Experience</a>
+          <a href="#contact" class="hover:text-zinc-950 dark:hover:text-white transition">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="theme" class="w-9 h-9 rounded-xl border border-zinc-900/10 dark:border-white/10 hover:bg-zinc-900/5 dark:hover:bg-white/10 transition" aria-label="Toggle color theme">☾</button>
+          <button id="resume" class="hidden sm:inline-flex rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-black px-4 py-2 text-xs font-semibold hover:opacity-80 transition">Résumé ↓</button>
+          <button id="menu" class="md:hidden w-9 h-9 rounded-xl border border-zinc-900/10 dark:border-white/10" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        </div>
+      </div>
+
+      <div id="mobile" class="hidden md:hidden border-t border-zinc-900/10 dark:border-white/10 p-3">
+        <a href="#about" class="block rounded-xl px-3 py-2 text-sm hover:bg-zinc-900/5 dark:hover:bg-white/10">About</a>
+        <a href="#projects" class="block rounded-xl px-3 py-2 text-sm hover:bg-zinc-900/5 dark:hover:bg-white/10">Projects</a>
+        <a href="#experience" class="block rounded-xl px-3 py-2 text-sm hover:bg-zinc-900/5 dark:hover:bg-white/10">Experience</a>
+        <a href="#contact" class="block rounded-xl px-3 py-2 text-sm hover:bg-zinc-900/5 dark:hover:bg-white/10">Contact</a>
+        <button id="mobileResume" class="mt-2 w-full rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-black px-4 py-2 text-xs font-semibold">Download résumé</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <!-- HERO -->
+    <section class="relative min-h-[94vh] overflow-hidden flex items-center border-b border-zinc-900/10 dark:border-white/10">
+      <div class="absolute inset-0 grid-paper"></div>
+      <div class="absolute left-1/2 top-1/3 -translate-x-1/2 w-[34rem] h-[18rem] rounded-full bg-zinc-900/[.025] dark:bg-white/[.025] blur-3xl"></div>
+
+      <div class="relative w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 pt-32 pb-20">
+        <div class="max-w-5xl reveal">
+          <div class="flex flex-wrap items-center gap-3 mb-7">
+            <span class="mono text-[10px] sm:text-xs uppercase tracking-[.22em] text-zinc-500">Cloud / Infrastructure / Automation</span>
+            <span class="w-1 h-1 rounded-full bg-zinc-400"></span>
+            <span class="mono text-[10px] sm:text-xs text-zinc-500">AVAILABLE FOR OPPORTUNITIES</span>
+          </div>
+
+          <h1 class="display font-bold tracking-[-.07em] leading-[.86] text-[clamp(3.4rem,10vw,8.8rem)]">
+            Automating<br>
+            <span class="text-zinc-400 dark:text-zinc-600">the cloud.</span>
+          </h1>
+
+          <div class="mt-10 grid lg:grid-cols-[1fr_auto] gap-8 items-end">
+            <p class="max-w-2xl text-base sm:text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+              I’m <strong class="text-zinc-950 dark:text-white">Mahavishnu</strong>, a Cloud Engineer / Cloud Infrastructure Engineer focused on
+              <strong class="text-zinc-950 dark:text-white">automating network and cloud infrastructure</strong> — building secure,
+              highly available systems with AWS/Azure, Linux, Python, Terraform, and Kubernetes.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="#projects" class="rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-black px-5 py-3 text-sm font-semibold hover:opacity-80 transition">View work ↓</a>
+              <a href="#contact" class="rounded-xl border border-zinc-900/15 dark:border-white/15 px-5 py-3 text-sm font-semibold hover:bg-zinc-900/5 dark:hover:bg-white/10 transition">Get in touch</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-20 reveal">
+          <div class="rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-white/55 dark:bg-white/[.025] backdrop-blur p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-5">
+              <span class="mono text-[10px] text-zinc-500">mahavishnu@cloud:~$ ./focus</span>
+              <span class="mono text-[10px] text-zinc-400">01—04</span>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-zinc-900/10 dark:bg-white/10 rounded-xl overflow-hidden">
+              <div class="bg-[#f7f6f2] dark:bg-[#0d0d0d] p-5"><p class="mono text-[10px] text-zinc-500">01</p><p class="mt-2 font-semibold">Secure networks</p></div>
+              <div class="bg-[#f7f6f2] dark:bg-[#0d0d0d] p-5"><p class="mono text-[10px] text-zinc-500">02</p><p class="mt-2 font-semibold">Infrastructure as Code</p></div>
+              <div class="bg-[#f7f6f2] dark:bg-[#0d0d0d] p-5"><p class="mono text-[10px] text-zinc-500">03</p><p class="mt-2 font-semibold">Python automation</p></div>
+              <div class="bg-[#f7f6f2] dark:bg-[#0d0d0d] p-5"><p class="mono text-[10px] text-zinc-500">04</p><p class="mt-2 font-semibold">High availability</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[.72fr_1.28fr] gap-14 lg:gap-24">
+          <div class="reveal">
+            <p class="mono text-[10px] tracking-[.22em] uppercase text-zinc-500 mb-5">01 / Profile</p>
+            <h2 class="display text-4xl sm:text-5xl font-bold tracking-tight leading-tight">Infrastructure with security and repeatability built in.</h2>
+          </div>
+
+          <div class="reveal">
+            <div class="space-y-5 text-zinc-600 dark:text-zinc-400 leading-8">
+              <p>Designed and deployed secure, multi-tier cloud architectures on AWS/Azure using custom VPCs/VNets, public/private subnets, and robust routing tables.</p>
+              <p>Provisioned and maintained Linux server fleets with proactive patch management, user access control, and storage optimization. Implemented network security controls using Cloud Firewalls, Security Groups, and NACLs to enforce least-privilege access.</p>
+              <p>Developed Python automation for system administration, log analysis, and cloud resource utilization. Practiced Terraform-based Infrastructure as Code and managed containerized applications with Kubernetes.</p>
+            </div>
+
+            <div class="mt-12 grid sm:grid-cols-2 gap-8">
+              <div>
+                <p class="mono text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Cloud & Network</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">AWS</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Azure</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">VPC / VNet</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">NACLs</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Security Groups</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Load Balancing</span>
+                </div>
+              </div>
+              <div>
+                <p class="mono text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Automation & IaC</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Python</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Terraform</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Bash</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Git</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">CI/CD</span>
+                </div>
+              </div>
+              <div>
+                <p class="mono text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Systems & Containers</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Linux</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Kubernetes</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Docker</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Storage</span>
+                </div>
+              </div>
+              <div>
+                <p class="mono text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Security & Operations</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Cloud Firewalls</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">IAM</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Patch Management</span>
+                  <span class="skill rounded-lg border border-zinc-900/10 dark:border-white/10 px-3 py-2 text-sm">Monitoring</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24 sm:py-32 bg-zinc-100/70 dark:bg-white/[.025] border-y border-zinc-900/10 dark:border-white/10">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 reveal">
+          <div>
+            <p class="mono text-[10px] tracking-[.22em] uppercase text-zinc-500 mb-5">02 / Selected work</p>
+            <h2 class="display text-4xl sm:text-5xl font-bold tracking-tight">Systems, not screenshots.</h2>
+          </div>
+          <a class="line-link mono text-[10px] text-zinc-500" href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer">GITHUB ↗</a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <!-- Project 1 -->
+          <article class="project rounded-3xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2] dark:bg-[#0c0c0c] overflow-hidden reveal" data-tilt>
+            <div class="aspect-[16/9] p-5">
+              <div class="h-full rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-zinc-100 dark:bg-[#111] p-4">
+                <div class="flex justify-between mono text-[9px] text-zinc-500"><span>ARCHITECTURE / 01</span><span>3-TIER</span></div>
+                <div class="h-full flex items-center justify-center">
+                  <div class="w-[88%] max-w-sm">
+                    <div class="grid grid-cols-3 gap-2">
+                      <div class="h-11 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[10px]">Internet</div>
+                      <div class="h-11 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[10px]">ALB</div>
+                      <div class="h-11 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[10px]">App</div>
+                    </div>
+                    <div class="mx-auto h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div class="h-11 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[10px]">Private subnet</div>
+                      <div class="h-11 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[10px]">DB / Storage</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-1">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="mono text-[9px] text-zinc-500">PROJECT 01</p>
+                  <h3 class="display mt-2 text-2xl font-bold">Secure Multi-Tier Cloud Infrastructure</h3>
+                </div>
+                <button class="case-btn shrink-0 rounded-lg border border-zinc-900/10 dark:border-white/10 px-2.5 py-2 mono text-[9px]" aria-expanded="false">CASE</button>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">Built a highly available, secure 3-tier web application architecture inside AWS/Azure with segmented public/private networking.</p>
+              <div class="case hidden mt-4 rounded-xl bg-zinc-100 dark:bg-white/[.04] p-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <strong class="text-zinc-950 dark:text-white">Architecture:</strong> public/private subnets, NAT Gateways, Load Balancer, routing tables and hardened Security Groups. <br>
+                <strong class="text-zinc-950 dark:text-white">Outcome:</strong> repeatable reference architecture designed for secure traffic flow and high availability.
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">AWS / Azure</span>
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Linux</span>
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Networking</span>
+              </div>
+              <div class="mt-6 flex gap-5 text-sm font-semibold"><a class="line-link" href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer">GitHub ↗</a><a class="line-link" href="#contact">Discuss →</a></div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project rounded-3xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2] dark:bg-[#0c0c0c] overflow-hidden reveal" data-tilt>
+            <div class="aspect-[16/9] p-5">
+              <div class="h-full rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-zinc-100 dark:bg-[#111] p-4">
+                <div class="flex justify-between mono text-[9px] text-zinc-500"><span>AUTOMATION / 02</span><span>IaC</span></div>
+                <div class="h-full flex items-center justify-center">
+                  <div class="w-[82%] rounded-xl border border-zinc-900/10 dark:border-white/10 p-4 mono text-[9px] leading-6 text-zinc-500">
+                    <div>$ terraform apply</div>
+                    <div class="text-zinc-900 dark:text-zinc-200">network: created</div>
+                    <div class="text-zinc-900 dark:text-zinc-200">security: audited</div>
+                    <div>report: generated<span class="terminal-caret">_</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-1">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="mono text-[9px] text-zinc-500">PROJECT 02</p>
+                  <h3 class="display mt-2 text-2xl font-bold">Infrastructure Automation with Python & Terraform</h3>
+                </div>
+                <button class="case-btn shrink-0 rounded-lg border border-zinc-900/10 dark:border-white/10 px-2.5 py-2 mono text-[9px]" aria-expanded="false">CASE</button>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">Automated cloud deployment and daily maintenance with Terraform and a Python-based security/environment audit workflow.</p>
+              <div class="case hidden mt-4 rounded-xl bg-zinc-100 dark:bg-white/[.04] p-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <strong class="text-zinc-950 dark:text-white">Workflow:</strong> Terraform provisions network components; Python audits open security ports, evaluates the environment, and prepares a daily status email.
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Python</span>
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Terraform</span>
+                <span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Cloud</span>
+              </div>
+              <div class="mt-6 flex gap-5 text-sm font-semibold"><a class="line-link" href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer">GitHub ↗</a><a class="line-link" href="#contact">Discuss →</a></div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project rounded-3xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2] dark:bg-[#0c0c0c] overflow-hidden reveal" data-tilt>
+            <div class="aspect-[16/9] p-5">
+              <div class="h-full rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-zinc-100 dark:bg-[#111] p-4">
+                <div class="flex justify-between mono text-[9px] text-zinc-500"><span>PLATFORM / 03</span><span>HA</span></div>
+                <div class="h-full flex items-center justify-center">
+                  <div class="w-[86%]">
+                    <div class="flex items-center gap-2">
+                      <div class="w-20 h-10 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[9px]">Traffic</div>
+                      <div class="flex-1 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+                      <div class="w-20 h-10 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[9px]">ALB</div>
+                    </div>
+                    <div class="ml-[7.1rem] h-5 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div class="h-12 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[9px]">EC2 / ASG</div>
+                      <div class="h-12 rounded-lg border border-zinc-900/10 dark:border-white/10 flex items-center justify-center text-[9px]">EC2 / ASG</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-1">
+              <div class="flex items-start justify-between gap-4">
+                <div><p class="mono text-[9px] text-zinc-500">PROJECT 03</p><h3 class="display mt-2 text-2xl font-bold">High-Availability Web Platform</h3></div>
+                <button class="case-btn shrink-0 rounded-lg border border-zinc-900/10 dark:border-white/10 px-2.5 py-2 mono text-[9px]" aria-expanded="false">CASE</button>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">Configured Application Load Balancers and Auto Scaling groups to handle changing traffic demands while maintaining service availability.</p>
+              <div class="case hidden mt-4 rounded-xl bg-zinc-100 dark:bg-white/[.04] p-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <strong class="text-zinc-950 dark:text-white">Focus:</strong> traffic distribution, horizontal scaling, health checks, resilient instance placement, and operational continuity.
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2"><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">ALB</span><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Auto Scaling</span><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">AWS</span></div>
+              <div class="mt-6 flex gap-5 text-sm font-semibold"><a class="line-link" href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer">GitHub ↗</a><a class="line-link" href="#contact">Discuss →</a></div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project rounded-3xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2] dark:bg-[#0c0c0c] overflow-hidden reveal" data-tilt>
+            <div class="aspect-[16/9] p-5">
+              <div class="h-full rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-zinc-100 dark:bg-[#111] p-4">
+                <div class="flex justify-between mono text-[9px] text-zinc-500"><span>CONTAINERS / 04</span><span>K8S</span></div>
+                <div class="h-full flex items-center justify-center">
+                  <div class="grid grid-cols-3 gap-2 w-[82%]">
+                    <div class="h-20 rounded-xl border border-zinc-900/10 dark:border-white/10 p-3"><p class="mono text-[8px] text-zinc-500">POD</p><div class="mt-3 h-2 rounded bg-zinc-900/10 dark:bg-white/10"></div><div class="mt-2 h-2 w-2/3 rounded bg-zinc-900/10 dark:bg-white/10"></div></div>
+                    <div class="h-20 rounded-xl border border-zinc-900/10 dark:border-white/10 p-3"><p class="mono text-[8px] text-zinc-500">SERVICE</p><div class="mt-3 h-2 rounded bg-zinc-900/10 dark:bg-white/10"></div><div class="mt-2 h-2 w-2/3 rounded bg-zinc-900/10 dark:bg-white/10"></div></div>
+                    <div class="h-20 rounded-xl border border-zinc-900/10 dark:border-white/10 p-3"><p class="mono text-[8px] text-zinc-500">NETWORK</p><div class="mt-3 h-2 rounded bg-zinc-900/10 dark:bg-white/10"></div><div class="mt-2 h-2 w-2/3 rounded bg-zinc-900/10 dark:bg-white/10"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-1">
+              <div class="flex items-start justify-between gap-4">
+                <div><p class="mono text-[9px] text-zinc-500">PROJECT 04</p><h3 class="display mt-2 text-2xl font-bold">Kubernetes Application Platform</h3></div>
+                <button class="case-btn shrink-0 rounded-lg border border-zinc-900/10 dark:border-white/10 px-2.5 py-2 mono text-[9px]" aria-expanded="false">CASE</button>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">Managed containerized workloads by configuring Kubernetes pods, services, and cluster networking concepts.</p>
+              <div class="case hidden mt-4 rounded-xl bg-zinc-100 dark:bg-white/[.04] p-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                <strong class="text-zinc-950 dark:text-white">Focus:</strong> workload scheduling, service discovery, networking, configuration, and container operations.
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2"><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Kubernetes</span><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Docker</span><span class="mono text-[9px] bg-zinc-900/5 dark:bg-white/10 rounded-full px-2.5 py-1">Linux</span></div>
+              <div class="mt-6 flex gap-5 text-sm font-semibold"><a class="line-link" href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer">GitHub ↗</a><a class="line-link" href="#contact">Discuss →</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[.72fr_1.28fr] gap-14 lg:gap-24">
+          <div class="reveal">
+            <p class="mono text-[10px] tracking-[.22em] uppercase text-zinc-500 mb-5">03 / Experience</p>
+            <h2 class="display text-4xl sm:text-5xl font-bold tracking-tight">A technical career in motion.</h2>
+          </div>
+
+          <div class="reveal border-l border-zinc-900/15 dark:border-white/15">
+            <div class="relative pl-8 pb-12">
+              <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-950 dark:bg-white"></span>
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <h3 class="font-semibold text-lg">Cloud Engineering & DevOps</h3>
+                <span class="mono text-[9px] text-zinc-500">CURRENT FOCUS</span>
+              </div>
+              <p class="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">Hands-on work with AWS/Azure networking, Linux administration, Python automation, Terraform, Kubernetes, security controls, load balancing, and autoscaling.</p>
+            </div>
+
+            <div class="relative pl-8 pb-12">
+              <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border border-zinc-400 bg-[#f7f6f2] dark:bg-[#090909]"></span>
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <h3 class="font-semibold text-lg">Customer Support Executive</h3>
+                <span class="mono text-[9px] text-zinc-500">~2 YEARS</span>
+              </div>
+              <p class="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">Built practical troubleshooting, communication, incident-handling, documentation, and structured problem-solving experience in a customer-facing technical environment.</p>
+            </div>
+
+            <div class="relative">
+              <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border border-zinc-400 bg-[#f7f6f2] dark:bg-[#090909]"></span>
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <h3 class="font-semibold text-lg">B.A. Computer Science</h3>
+                <span class="mono text-[9px] text-zinc-500">2017</span>
+              </div>
+              <p class="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">Computer Science foundation followed by a deliberate transition toward cloud infrastructure and modern operations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 sm:py-32 bg-zinc-100/70 dark:bg-white/[.025] border-y border-zinc-900/10 dark:border-white/10">
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[1fr_.9fr] gap-14 lg:gap-24 items-start">
+          <div class="reveal">
+            <p class="mono text-[10px] tracking-[.22em] uppercase text-zinc-500 mb-5">04 / Contact</p>
+            <h2 class="display text-5xl sm:text-7xl font-bold tracking-[-.06em] leading-[.9]">Let’s make<br>infrastructure<br><span class="text-zinc-400 dark:text-zinc-600">automatic.</span></h2>
+            <p class="mt-7 max-w-md text-zinc-600 dark:text-zinc-400 leading-7">For cloud engineering, infrastructure, DevOps, automation, or technical collaboration, send a message.</p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <button id="copy" class="rounded-xl border border-zinc-900/15 dark:border-white/15 px-4 py-3 text-sm font-semibold hover:bg-zinc-900/5 dark:hover:bg-white/10 transition">Copy email</button>
+              <a id="emailLink" href="mailto:YOUR_EMAIL@example.com" class="mono text-[10px] text-zinc-500 hover:text-zinc-950 dark:hover:text-white">YOUR_EMAIL@example.com</a>
+            </div>
+            <p id="copyStatus" class="mono mt-3 text-[9px] text-zinc-500 h-4" aria-live="polite"></p>
+          </div>
+
+          <form id="contactForm" class="rounded-3xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2] dark:bg-[#0c0c0c] p-6 sm:p-8 reveal">
+            <div class="space-y-5">
+              <div><label for="name" class="mono text-[9px] uppercase tracking-widest text-zinc-500">Name</label><input id="name" required class="mt-2 w-full rounded-xl border border-zinc-900/10 dark:border-white/10 bg-transparent px-4 py-3 outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/10" placeholder="Your name"></div>
+              <div><label for="sender" class="mono text-[9px] uppercase tracking-widest text-zinc-500">Email</label><input id="sender" type="email" required class="mt-2 w-full rounded-xl border border-zinc-900/10 dark:border-white/10 bg-transparent px-4 py-3 outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/10" placeholder="you@example.com"></div>
+              <div><label for="message" class="mono text-[9px] uppercase tracking-widest text-zinc-500">Message</label><textarea id="message" rows="5" required class="mt-2 w-full rounded-xl border border-zinc-900/10 dark:border-white/10 bg-transparent px-4 py-3 outline-none resize-y focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/10" placeholder="Tell me about the infrastructure challenge..."></textarea></div>
+              <button class="w-full rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-black px-5 py-3.5 text-sm font-semibold hover:opacity-80 transition" type="submit">Open email draft →</button>
+              <p class="text-[10px] leading-5 text-zinc-500">Static-site friendly: the form opens the visitor’s default email application; no backend is required.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between gap-3 text-[10px] text-zinc-500">
+      <span>© <span id="year"></span> Mahavishnu</span>
+      <a href="https://github.com/Mahavishnu50" target="_blank" rel="noreferrer" class="hover:text-zinc-950 dark:hover:text-white">GitHub ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    // Replace this once with your real email address.
+    const EMAIL = "YOUR_EMAIL@example.com";
+
+    // Theme
+    const root = document.documentElement;
+    const stored = localStorage.getItem("mahavishnu-theme");
+    if (stored === "dark" || (!stored && matchMedia("(prefers-color-scheme: dark)").matches)) root.classList.add("dark");
+    const themeBtn = document.getElementById("theme");
+    function syncThemeIcon(){ themeBtn.textContent = root.classList.contains("dark") ? "☀" : "☾"; }
+    syncThemeIcon();
+    themeBtn.addEventListener("click",()=>{
+      root.classList.toggle("dark");
+      localStorage.setItem("mahavishnu-theme", root.classList.contains("dark") ? "dark" : "light");
+      syncThemeIcon();
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById("menu");
+    const mobile = document.getElementById("mobile");
+    menuBtn.addEventListener("click",()=>{
+      const isOpen = !mobile.classList.contains("hidden");
+      mobile.classList.toggle("hidden");
+      menuBtn.setAttribute("aria-expanded", String(!isOpen));
+    });
+    mobile.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+      mobile.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded","false");
+    }));
+
+    // Reveal
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target); }
+      });
+    },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+    // Case studies
+    document.querySelectorAll(".case-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const box = btn.closest("article").querySelector(".case");
+        const open = !box.classList.contains("hidden");
+        box.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", String(!open));
+      });
+    });
+
+    // Refined desktop tilt
+    document.querySelectorAll("[data-tilt]").forEach(card=>{
+      card.addEventListener("pointermove",e=>{
+        if(innerWidth < 768) return;
+        const r=card.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        card.style.transform=`perspective(1000px) rotateX(${(-y*2).toFixed(2)}deg) rotateY(${(x*2).toFixed(2)}deg)`;
+      });
+      card.addEventListener("pointerleave",()=>card.style.transform="");
+    });
+
+    // Email
+    document.getElementById("emailLink").href = `mailto:${EMAIL}`;
+    document.getElementById("emailLink").textContent = EMAIL;
+    document.getElementById("copy").addEventListener("click",async()=>{
+      const status=document.getElementById("copyStatus");
+      try { await navigator.clipboard.writeText(EMAIL); status.textContent="Email copied."; }
+      catch { status.textContent="Copy unavailable — select the address manually."; }
+      setTimeout(()=>status.textContent="",2200);
+    });
+
+    document.getElementById("contactForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const n=document.getElementById("name").value.trim();
+      const s=document.getElementById("sender").value.trim();
+      const m=document.getElementById("message").value.trim();
+      const subject=encodeURIComponent(`Portfolio enquiry from ${n}`);
+      const body=encodeURIComponent(`Name: ${n}\nEmail: ${s}\n\n${m}`);
+      location.href=`mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    });
+
+    // Generated text résumé. Replace with your complete résumé details.
+    const resumeText = `MAHAVISHNU
+Cloud Engineer / Cloud Infrastructure Engineer
+Superpower: Automating network and cloud infrastructure
+
+PROFILE
+Designed and deployed secure, multi-tier cloud architectures on AWS/Azure using custom VPCs/VNets,
+public/private subnets, and robust routing tables. Experienced with Linux administration, network
+security controls, Python automation, high availability, Terraform IaC, and Kubernetes.
+
+CORE SKILLS
+AWS • Azure • VPC/VNet • Public/Private Subnets • Routing • NAT Gateway
+Security Groups • NACLs • Cloud Firewalls • IAM • Linux • Python • Terraform
+Kubernetes • Docker • Load Balancers • Auto Scaling • Git • Bash
+
+PROJECTS
+1. Secure Multi-Tier Cloud Infrastructure
+Built a highly available 3-tier architecture with public/private subnets, NAT Gateways,
+Load Balancers, routing, and hardened Security Groups.
+
+2. Infrastructure Automation with Python & Terraform
+Automated network provisioning with Terraform and created a Python environment audit that checks
+open security ports and prepares a daily status report.
+
+3. High-Availability Web Platform
+Configured Application Load Balancers and Auto Scaling groups for changing traffic demands.
+
+4. Kubernetes Application Platform
+Configured pods, services, and cluster networking for containerized workloads.
+
+EXPERIENCE
+Customer Support Executive — approximately 2 years
+Developed troubleshooting, communication, incident handling, documentation, and structured problem solving.
+
+EDUCATION
+B.A. Computer Science — 2017
+
+GITHUB
+https://github.com/Mahavishnu50
+`;
+    function downloadResume(){
+      const blob=new Blob([resumeText],{type:"text/plain;charset=utf-8"});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url; a.download="Mahavishnu-Resume.txt"; a.click();
+      URL.revokeObjectURL(url);
+    }
+    document.getElementById("resume").addEventListener("click",downloadResume);
+    document.getElementById("mobileResume").addEventListener("click",downloadResume);
+    document.getElementById("year").textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
