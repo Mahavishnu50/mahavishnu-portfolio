@@ -2,9 +2,10 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="Mahavishnu — Cloud Engineer focused on automating network and cloud infrastructure.">
   <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☁️%3C/text%3E%3C/svg%3E">
   <title>Mahavishnu — Cloud Infrastructure Engineer</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,7 +28,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root { color-scheme: light; }
+    :root { color-scheme: light; box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+    html { scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px); }
     .dark { color-scheme: dark; }
     html { scroll-behavior:smooth; }
     body { font-family:Inter,sans-serif; }
@@ -71,7 +73,7 @@
 </head>
 
 <body class="noise bg-[#f7f6f2] text-zinc-950 dark:bg-[#090909] dark:text-zinc-100">
-  <header class="fixed inset-x-0 top-0 z-40 px-3 sm:px-5 pt-3">
+  <header class="fixed inset-x-0 top-0 z-40 px-3 sm:px-5 pt-3" style="padding-top:calc(env(safe-area-inset-top,0px) + .75rem)">
     <nav class="mx-auto max-w-6xl rounded-2xl border border-zinc-900/10 dark:border-white/10 bg-[#f7f6f2]/85 dark:bg-[#090909]/80 backdrop-blur-xl">
       <div class="h-14 px-4 sm:px-5 flex items-center justify-between">
         <a href="#home" class="display font-bold text-lg tracking-tight" aria-label="Mahavishnu home">M<span class="text-zinc-400">/</span></a>
@@ -390,7 +392,7 @@
             <div class="relative pl-8 pb-12">
               <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border border-zinc-400 bg-[#f7f6f2] dark:bg-[#090909]"></span>
               <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
-                <h3 class="font-semibold text-lg">Customer Support Executive</h3>
+                <h3 class="font-semibold text-lg">Technical Support Executive</h3>
                 <span class="mono text-[9px] text-zinc-500">~2 YEARS</span>
               </div>
               <p class="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">Built practical troubleshooting, communication, incident-handling, documentation, and structured problem-solving experience in a customer-facing technical environment.</p>
@@ -399,7 +401,7 @@
             <div class="relative">
               <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border border-zinc-400 bg-[#f7f6f2] dark:bg-[#090909]"></span>
               <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
-                <h3 class="font-semibold text-lg">B.A. Computer Science</h3>
+                <h3 class="font-semibold text-lg">B.E. Computer Science</h3>
                 <span class="mono text-[9px] text-zinc-500">2017</span>
               </div>
               <p class="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400">Computer Science foundation followed by a deliberate transition toward cloud infrastructure and modern operations.</p>
@@ -420,7 +422,7 @@
 
             <div class="mt-8 flex flex-wrap items-center gap-3">
               <button id="copy" class="rounded-xl border border-zinc-900/15 dark:border-white/15 px-4 py-3 text-sm font-semibold hover:bg-zinc-900/5 dark:hover:bg-white/10 transition">Copy email</button>
-              <a id="emailLink" href="mailto:YOUR_EMAIL@example.com" class="mono text-[10px] text-zinc-500 hover:text-zinc-950 dark:hover:text-white">YOUR_EMAIL@example.com</a>
+              <a id="emailLink" href="mailto:mahavishnumurugan50@gmail.com" class="mono text-[10px] text-zinc-500 hover:text-zinc-950 dark:hover:text-white">mahavishnumurugan50@gmail.com</a>
             </div>
             <p id="copyStatus" class="mono mt-3 text-[9px] text-zinc-500 h-4" aria-live="polite"></p>
           </div>
@@ -448,18 +450,18 @@
 
   <script>
     // Replace this once with your real email address.
-    const EMAIL = "YOUR_EMAIL@example.com";
+    const EMAIL = "mahavishnumurugan50@gmail.com";
 
     // Theme
     const root = document.documentElement;
-    const stored = localStorage.getItem("mahavishnu-theme");
+    let stored = null; try { stored = localStorage.getItem("mahavishnu-theme"); } catch(e) {}
     if (stored === "dark" || (!stored && matchMedia("(prefers-color-scheme: dark)").matches)) root.classList.add("dark");
     const themeBtn = document.getElementById("theme");
     function syncThemeIcon(){ themeBtn.textContent = root.classList.contains("dark") ? "☀" : "☾"; }
     syncThemeIcon();
     themeBtn.addEventListener("click",()=>{
       root.classList.toggle("dark");
-      localStorage.setItem("mahavishnu-theme", root.classList.contains("dark") ? "dark" : "light");
+      try { localStorage.setItem("mahavishnu-theme", root.classList.contains("dark") ? "dark" : "light"); } catch(e) {}
       syncThemeIcon();
     });
 
@@ -556,11 +558,11 @@ Configured Application Load Balancers and Auto Scaling groups for changing traff
 Configured pods, services, and cluster networking for containerized workloads.
 
 EXPERIENCE
-Customer Support Executive — approximately 2 years
+Technical Support Executive — approximately 2 years
 Developed troubleshooting, communication, incident handling, documentation, and structured problem solving.
 
 EDUCATION
-B.A. Computer Science — 2017
+B.E. Computer Science — 2017
 
 GITHUB
 https://github.com/Mahavishnu50
@@ -568,8 +570,8 @@ https://github.com/Mahavishnu50
     function downloadResume(){
       const blob=new Blob([resumeText],{type:"text/plain;charset=utf-8"});
       const url=URL.createObjectURL(blob);
-      const a=document.createElement("a");
-      a.href=url; a.download="Mahavishnu-Resume.txt"; a.click();
+      const el=document.createElement("a");
+      el.href=url; el.download="Mahavishnu-Resume.txt"; el.click();
       URL.revokeObjectURL(url);
     }
     document.getElementById("resume").addEventListener("click",downloadResume);
